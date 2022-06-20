@@ -4,14 +4,18 @@ import s from './List.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faLock, faLockOpen, faSave, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-export const TodoList = ({ todo, setTodo }) => {
+export const TodoList = ({ todo, setTodo, saveInLS }) => {
 
     const [edit, setEdit] = useState(null)
     const [value, setValue] = useState('')
 
+ 
+
     const deleteTodo = (id) => {
         let newTodo = [...todo].filter(item => item.id != id)
         setTodo(newTodo)
+        saveInLS(newTodo)
+        
     }
     const statusTodo = (id) => {
         let newTodo = [...todo].filter(item => {

@@ -6,13 +6,16 @@ import { Container } from 'react-bootstrap'
 
 function App() {
 
-  const [todo, setTodo] = useState([])
-
+  const [todo, setTodo] = useState(localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [])
+  const setTodosWithSave = (newTodos) => {
+    setTodo(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos))
+}
   return (
     <Container>
       < Header />
-      < AddTodo todo={todo} setTodo={setTodo} />
-      < TodoList todo={todo} setTodo={setTodo} />
+      < AddTodo todo={todo} setTodo={setTodo} saveInLS = {setTodosWithSave} />
+      < TodoList todo={todo} setTodo={setTodo} saveInLS = {setTodosWithSave}/>
     </Container>
   );
 }
